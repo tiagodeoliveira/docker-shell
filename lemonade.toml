@@ -1,0 +1,5 @@
+port=2489
+host=''
+trans-loopback = true
+trans-localfile = true
+line-ending = 'crlf'
