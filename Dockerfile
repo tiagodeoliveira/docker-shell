@@ -6,18 +6,18 @@ ENV GOVERSION 1.6.2
 ENV GOROOT /opt/go
 ENV GOPATH /root/.go
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository ppa:neovim-ppa/stable && apt-get update
-RUN apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy
-RUN pip install --upgrade mock neovim 
+RUN apt-get update && \
+	apt-get install -y software-properties-common && \
+	add-apt-repository ppa:neovim-ppa/stable && apt-get update && \
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool && \
+	pip install --upgrade mock neovim grip 
 
-RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-RUN update-alternatives --config vi
-RUN update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-RUN update-alternatives --config vim
-RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-RUN update-alternatives --config editor
+RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
+	update-alternatives --config vi && \
+	update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60 && \
+	update-alternatives --config vim && \
+	update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60 && \
+	update-alternatives --config editor
 
 RUN curl -fLo /root/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

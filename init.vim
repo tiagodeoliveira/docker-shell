@@ -7,6 +7,8 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'https://github.com/altercation/vim-colors-solarized.git'
 Plug 'scrooloose/nerdcommenter'
 Plug 'udalov/kotlin-vim'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'neomake/neomake'
 call plug#end()
 let NERDTreeShowHidden=1
 if has('nvim')
