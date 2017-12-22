@@ -9,7 +9,7 @@ ENV GOPATH /root/.go
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
 	add-apt-repository ppa:neovim-ppa/stable && apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool && \
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven && \
 	pip install --upgrade mock neovim grip 
 
 RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
@@ -44,4 +44,4 @@ VOLUME /projects
 
 WORKDIR /projects
 
-CMD ["/usr/bin/zsh"]
+CMD ["tmux"]
