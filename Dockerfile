@@ -1,16 +1,36 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV OTP_VERSION "20.2.2"
+ENV REBAR_VERSION="2.6.4"
+ENV REBAR3_VERSION="3.4.7"
 ENV LANG en_US.UTF-8
 ENV GOVERSION 1.6.2
 ENV GOROOT /opt/go
 ENV GOPATH /root/.go
+ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" 
+ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
 
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
 	add-apt-repository ppa:neovim-ppa/stable && apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven && \
-	pip install --upgrade mock neovim grip 
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf && \
+	pip install --upgrade pip mock neovim grip 
+
+RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
+    echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - && \
+    export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" && \
+    mkdir -vp $ERL_TOP && \  
+    tar -xzf otp-src.tar.gz -C $ERL_TOP --strip-components=1 && \
+    rm otp-src.tar.gz && \
+    ( cd $ERL_TOP \
+	  && ./otp_build autoconf \
+	  && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+	  && ./configure --build="$gnuArch" \
+	  && make -j$(nproc) \
+	  && make install ) \
+	&& find /usr/local -name examples | xargs rm -rf \
+	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
 	update-alternatives --config vi && \
