@@ -13,8 +13,10 @@ ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510
 
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
-	add-apt-repository ppa:neovim-ppa/stable && apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf && \
+	add-apt-repository ppa:neovim-ppa/stable && \
+    add-apt-repository ppa:zanchey/asciinema && \
+    apt-get update && \
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping && \
 	pip install --upgrade pip mock neovim grip 
 
 RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
