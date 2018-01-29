@@ -10,13 +10,15 @@ ENV GOROOT /opt/go
 ENV GOPATH /root/.go
 ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" 
 ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
+ENV GRADLE_HOME /opt/gradle
+ENV GRADLE_VERSION 4.4.1
 
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
 	add-apt-repository ppa:neovim-ppa/stable && \
     add-apt-repository ppa:zanchey/asciinema && \
     apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk gradle snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping && \
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping && \
 	pip install --upgrade pip mock neovim grip 
 
 RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
@@ -33,6 +35,12 @@ RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
 	  && make install ) \
 	&& find /usr/local -name examples | xargs rm -rf \
 	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
+
+RUN wget -O gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+	&& unzip gradle.zip \
+	&& rm gradle.zip \
+	&& mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
+	&& ln -s "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle 
 
 RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
 	update-alternatives --config vi && \
