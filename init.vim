@@ -18,3 +18,5 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set clipboard+=unnamedplus
+let vim_markdown_preview_toggle=2
+let vim_markdown_preview_github=1
