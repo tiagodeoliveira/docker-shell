@@ -1,9 +1,9 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV OTP_VERSION "20.2.2"
-ENV REBAR_VERSION="2.6.4"
-ENV REBAR3_VERSION="3.4.7"
+ENV OTP_VERSION 20.2.2
+ENV REBAR_VERSION 2.6.4
+ENV REBAR3_VERSION 3.4.7
 ENV LANG en_US.UTF-8
 ENV GOVERSION 1.6.2
 ENV GOROOT /opt/go
@@ -12,6 +12,8 @@ ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.t
 ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
 ENV GRADLE_HOME /opt/gradle
 ENV GRADLE_VERSION 4.4.1
+ENV TERRAFORM_VERSION 0.11.3
+ENV NVM_VERSION 0.33.8
 
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
@@ -53,8 +55,8 @@ RUN curl -fLo /root/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 RUN git clone https://github.com/powerline/fonts.git --depth=1 && cd fonts && ./install.sh && cd .. && rm -rf fonts
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-RUN wget https://releases.hashicorp.com/terraform/0.10.3/terraform_0.10.3_linux_386.zip && unzip terraform* && mv terraform /usr/bin
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_386.zip && unzip terraform* && mv terraform /usr/bin && rm -rf terraform*
 RUN cd /opt && wget https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
     tar zxf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz && \
     ln -s /opt/go/bin/go /usr/bin/ && \
