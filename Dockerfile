@@ -20,7 +20,7 @@ RUN apt-get update && \
 	add-apt-repository ppa:neovim-ppa/stable && \
     add-apt-repository ppa:zanchey/asciinema && \
     apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping && \
+	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping silversearcher-ag && \
 	pip install --upgrade pip mock neovim grip 
 
 RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
