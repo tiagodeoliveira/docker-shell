@@ -11,7 +11,7 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="/root/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" 
 
-[ -d "/keys" ] && eval `ssh-agent -s` && ssh-add /keys/*
+[ ! -z "$(ls -A /keys)" ] && eval `ssh-agent -s` && ssh-add /keys/*
 
 git config --global user.email "tiago@tiago.sh"
 git config --global user.name "Tiago Rodrigues de Oliveira"

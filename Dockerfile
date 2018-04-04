@@ -12,7 +12,7 @@ ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.t
 ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
 ENV GRADLE_HOME /opt/gradle
 ENV GRADLE_VERSION 4.4.1
-ENV TERRAFORM_VERSION 0.11.3
+ENV TERRAFORM_VERSION 0.11.5
 ENV NVM_VERSION 0.33.8
 
 RUN apt-get update && \
@@ -38,7 +38,7 @@ RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
 	&& find /usr/local -name examples | xargs rm -rf \
 	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
 
-RUN wget -O gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+RUN wget --quiet -O gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
 	&& unzip gradle.zip \
 	&& rm gradle.zip \
 	&& mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
@@ -51,17 +51,16 @@ RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
 	update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60 && \
 	update-alternatives --config editor
 
-RUN curl -fLo /root/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+RUN wget --quiet https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | bash
+RUN curl -fLo /root/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN git clone https://github.com/powerline/fonts.git --depth=1 && cd fonts && ./install.sh && cd .. && rm -rf fonts
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash
-RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_386.zip && unzip terraform* && mv terraform /usr/bin && rm -rf terraform*
-RUN cd /opt && wget https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
+RUN wget --quiet https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_386.zip && unzip terraform* && mv terraform /usr/bin && rm -rf terraform*
+RUN cd /opt && wget --quiet https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz && \
     tar zxf go${GOVERSION}.linux-amd64.tar.gz && rm go${GOVERSION}.linux-amd64.tar.gz && \
     ln -s /opt/go/bin/go /usr/bin/ && \
     mkdir $GOPATH
-RUN cd /tmp && wget https://github.com/pocke/lemonade/releases/download/v1.1.1/lemonade_linux_amd64.tar.gz && tar -zxvf lemonade_linux_amd64.tar.gz && mv lemonade /usr/bin && rm -rf lemonade_linux_amd64.tar.gz
+RUN cd /tmp && wget --quiet https://github.com/pocke/lemonade/releases/download/v1.1.1/lemonade_linux_amd64.tar.gz && tar -zxvf lemonade_linux_amd64.tar.gz && mv lemonade /usr/bin && rm -rf lemonade_linux_amd64.tar.gz
 
 RUN export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && nvm install 6.10
 
