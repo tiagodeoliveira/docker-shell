@@ -10,6 +10,9 @@ Plug 'udalov/kotlin-vim'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
+Plug 'posva/vim-vue'
+Plug 'Shougo/unite.vim'
+Plug 'Quramy/vison'
 call plug#end()
 if has('nvim')
 	au VimEnter * set wildmode=full
