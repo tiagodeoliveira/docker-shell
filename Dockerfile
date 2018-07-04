@@ -19,8 +19,9 @@ RUN apt-get update && \
 	apt-get install -y software-properties-common && \
 	add-apt-repository ppa:neovim-ppa/stable && \
     add-apt-repository ppa:zanchey/asciinema && \
+    add-apt-repository ppa:alessandro-strada/ppa && \
     apt-get update && \
-	apt-get install -y tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping silversearcher-ag mplayer caca-utils && \
+	apt-get install -y docker.io tmux neovim python python-dev python-pip python3-dev python3-pip curl git zsh wget language-pack-en zip jq ruby openjdk-8-jdk snappy ash markdown lynx xdotool maven mercurial libncurses5-dev autoconf asciinema iputils-ping silversearcher-ag mplayer caca-utils google-drive-ocamlfuse && \
 	pip install --upgrade pip mock neovim grip 
 
 RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
