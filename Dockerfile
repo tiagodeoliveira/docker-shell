@@ -8,12 +8,11 @@ ENV TERM=xterm-256color
 
 # Install a bunch of "necessary" things
 RUN apt-get update && \
-  apt-get install -y locales && \
-  apt-get install -y software-properties-common && \
+	apt-get install -y software-properties-common && \
   add-apt-repository ppa:neovim-ppa/stable && \
   add-apt-repository ppa:zanchey/asciinema && \
-  apt-get update && \
   apt-get install -y \
+			locales \
       mosh \
       tmux  \
       neovim  \
