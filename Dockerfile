@@ -47,8 +47,6 @@ RUN apt-get update && \
 
 # Install erlang
 ENV OTP_VERSION 20.2.2
-ENV REBAR_VERSION 2.6.4
-ENV REBAR3_VERSION 3.4.7
 ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" 
 ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
 RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \  
