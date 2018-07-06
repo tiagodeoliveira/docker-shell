@@ -12,12 +12,12 @@ script:
   - docker build -t tiagodeoliveira/docker-shell:arm32v7 -f Dockerfile.arm32v7 .
 
 deploy:
-	provider: script
+  provider: script
   script: 
-	- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push tiagodeoliveira/docker-shell:latest
-  - docker push tiagodeoliveira/docker-shell:alpine
-  - docker push tiagodeoliveira/docker-shell:arm32v7
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    docker push tiagodeoliveira/docker-shell:latest
+    docker push tiagodeoliveira/docker-shell:alpine
+    docker push tiagodeoliveira/docker-shell:arm32v7
   on:
     branch: master
 
