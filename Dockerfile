@@ -52,7 +52,7 @@ RUN echo $TZ > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Install neovim and some other python stuff
-RUN pip install --upgrade pip mock neovim grip && \
+RUN pip install --upgrade pip mock neovim grip azure-cli && \
   update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
   update-alternatives --config vi && \
   update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60 && \
@@ -81,14 +81,9 @@ RUN cd /tmp && \
 	mv lemonade /usr/bin && \
 	rm -rf lemonade_linux_amd64.tar.gz
 
-# Install azure-client
-RUN curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add && \
-  apt-add-repository "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" && \
-  apt-get install azure-cli
-
 # Install kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && \
-  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-$(lsb_release -cs) main" && \
+  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" && \
   apt-get install kubectl
 
 # Install terraform
