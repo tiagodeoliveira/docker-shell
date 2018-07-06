@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM arm32v7/ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
@@ -42,8 +42,7 @@ RUN apt-get update && \
       iputils-ping \
       silversearcher-ag \
       pylint \
-      erlang \ 
-      docker.io
+      erlang
 
 # Config timezone
 ENV TZ Europe/Berlin

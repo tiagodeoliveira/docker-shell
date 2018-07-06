@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+language: bash
+
+script:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -t tiagodeoliveira/docker-shell .
+  - docker build -t tiagodeoliveira/docker-shell-alpine -f Dockerfile.alpine .
+  - docker build -t tiagodeoliveira/docker-shell-arm32v7 -f Dockerfile.arm32v7 .
