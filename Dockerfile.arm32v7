@@ -1,4 +1,6 @@
-FROM resin/rpi-raspbian
+FROM arm32v7/ubuntu
+
+COPY qemu-arm-static /usr/bin
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
