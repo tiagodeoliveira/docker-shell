@@ -43,6 +43,10 @@ RUN cd /opt && wget --quiet https://storage.googleapis.com/golang/go${GOVERSION}
     mkdir $GOPATH
 RUN cd /tmp && wget --quiet https://github.com/pocke/lemonade/releases/download/v1.1.1/lemonade_linux_amd64.tar.gz && tar -zxvf lemonade_linux_amd64.tar.gz && mv lemonade /usr/bin && rm -rf lemonade_linux_amd64.tar.gz
 
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && \
+  apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-xenial main' && \
+  apt-get install kubectl
+
 RUN export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && nvm install 6.10
 
 ADD init.vim /root/.config/nvim/init.vim

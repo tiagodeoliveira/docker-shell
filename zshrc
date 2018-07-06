@@ -4,7 +4,17 @@ export LANG=en_US.UTF-8
 export ZSH=/root/.oh-my-zsh
 
 ZSH_THEME="agnoster"
-plugins=(git)
+
+plugins=(
+    git
+    kubectl
+    docker-compose
+    docker
+    git-extras
+    gitignore
+    golang
+    helm
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -16,3 +26,6 @@ export NVM_DIR="/root/.nvm"
 git config --global user.email "tiago@tiago.sh"
 git config --global user.name "Tiago Rodrigues de Oliveira"
 git config --global push.default simple
+
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
