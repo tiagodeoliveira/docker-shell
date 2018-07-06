@@ -46,13 +46,6 @@ RUN apt-get update && \
       caca-utils \
       pylint
 
-# Config timezone
-ENV TZ Europe/Berlin
-RUN echo $TZ > /etc/timezone && \
-    rm /etc/localtime && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
-
 # Install erlang
 ENV OTP_VERSION 20.2.2
 ENV REBAR_VERSION 2.6.4
@@ -73,6 +66,13 @@ RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \
     && make install ) \ 
   && find /usr/local -name examples | xargs rm -rf \  
   && rm -rf $ERL_TOP /var/lib/apt/lists/*
+
+# Config timezone
+ENV TZ Europe/Berlin
+RUN echo $TZ > /etc/timezone && \
+    rm /etc/localtime && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # Install neovim and some other python stuff
 RUN pip install --upgrade pip mock neovim grip && \
