@@ -12,7 +12,7 @@ RUN apt-get update && \
   add-apt-repository ppa:neovim-ppa/stable && \
   add-apt-repository ppa:zanchey/asciinema && \
   apt-get install -y \
-			locales \
+      locales \
       mosh \
       tmux  \
       neovim  \
@@ -41,28 +41,8 @@ RUN apt-get update && \
       asciinema \
       iputils-ping \
       silversearcher-ag \
-      mplayer \
-      caca-utils \
-      pylint
-
-# Install erlang
-ENV OTP_VERSION 20.2.2
-ENV OTP_DOWNLOAD_URL "https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" 
-ENV OTP_DOWNLOAD_SHA256 "7614a06964fc5022ea4922603ca4bf1d2cc241f9bd6b7321314f510fd74c7304" 
-RUN curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" && \  
-  echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - && \  
-  export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" && \  
-  mkdir -vp $ERL_TOP && \    
-  tar -xzf otp-src.tar.gz -C $ERL_TOP --strip-components=1 && \  
-  rm otp-src.tar.gz && \ 
-  ( cd $ERL_TOP \  
-    && ./otp_build autoconf \ 
-    && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \  
-    && ./configure --build="$gnuArch" \ 
-    && make -j$(nproc) \  
-    && make install ) \ 
-  && find /usr/local -name examples | xargs rm -rf \  
-  && rm -rf $ERL_TOP /var/lib/apt/lists/*
+      pylint \
+      erlang
 
 # Config timezone
 ENV TZ Europe/Berlin
@@ -101,15 +81,15 @@ RUN cd /tmp && \
 	mv lemonade /usr/bin && \
 	rm -rf lemonade_linux_amd64.tar.gz
 
-# Install kubectl
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && \
-  apt-add-repository 'deb http://apt.kubernetes.io/ kubernetes-$(lsb_release -cs) main' && \
-  apt-get install kubectl
-
 # Install azure-client
 RUN curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add && \
-  apt-add-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main' && \
-	apt-get install azure-cli
+  apt-add-repository "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" && \
+  apt-get install azure-cli
+
+# Install kubectl
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && \
+  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-$(lsb_release -cs) main" && \
+  apt-get install kubectl
 
 # Install terraform
 ENV TERRAFORM_VERSION 0.11.7
