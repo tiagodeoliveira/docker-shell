@@ -99,6 +99,13 @@ ENV NVM_VERSION 0.33.8
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash
 RUN export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && nvm install 6.10
 
+# Install helm
+ENV HELM_VERSION v2.9.1
+RUN wget --quiet https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz && \
+	tar -zxvf helm* && \
+	mv linux-amd64/helm /usr/local/bin && \
+	rm -rf linux-adm64* && rm -rf helm*
+
 # Config vim
 ADD init.vim /root/.config/nvim/init.vim
 RUN nvim +PlugInstall +qall +silent
