@@ -9,7 +9,6 @@ script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t tiagodeoliveira/docker-shell:latest .
   - docker build -t tiagodeoliveira/docker-shell:alpine -f Dockerfile.alpine .
-  - docker build -t tiagodeoliveira/docker-shell:arm32v7 -f Dockerfile.arm32v7 .
 
 deploy:
   provider: script
@@ -17,7 +16,6 @@ deploy:
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     docker push tiagodeoliveira/docker-shell:latest
     docker push tiagodeoliveira/docker-shell:alpine
-    docker push tiagodeoliveira/docker-shell:arm32v7
   on:
     branch: master
 

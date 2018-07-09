@@ -43,7 +43,10 @@ RUN apt-get update && \
       silversearcher-ag \
       pylint \
       erlang \ 
-      docker.io
+      docker.io \
+      docker-compose \
+      ngrep \
+      linux-tools-`uname -r`
 
 # Config timezone
 ENV TZ Europe/Berlin
