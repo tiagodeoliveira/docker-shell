@@ -46,7 +46,8 @@ RUN apt-get update && \
       docker.io \
       docker-compose \
       ngrep \
-      linux-tools-`uname -r`
+      linux-tools-4.15.0.20 \
+      valgrind
 
 # Config timezone
 ENV TZ Europe/Berlin
