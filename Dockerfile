@@ -122,9 +122,9 @@ RUN chsh -s /usr/bin/zsh
 ADD tmux.conf /root/.tmux.conf
 ADD lemonade.toml /root/.config/lemonade.toml
 
-WORKDIR /projects
+WORKDIR /src
 
-VOLUME /projects
+VOLUME /src
 VOLUME /root
 VOLUME /keys
 
