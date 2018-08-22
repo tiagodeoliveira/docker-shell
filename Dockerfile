@@ -10,6 +10,7 @@ ENV TERM=xterm-256color
 RUN apt-get update && \
 	apt-get install -y software-properties-common && \
   add-apt-repository ppa:neovim-ppa/stable && \
+  add-apt-repository ppa:alessandro-strada/ppa && \
   add-apt-repository ppa:zanchey/asciinema && \
   apt-get install -y \
       locales \
@@ -47,7 +48,8 @@ RUN apt-get update && \
       docker-compose \
       ngrep \
       linux-tools-4.15.0.20 \
-      valgrind
+      valgrind \
+      google-drive-ocamlfuse
 
 # Config timezone
 ENV TZ Europe/Berlin
