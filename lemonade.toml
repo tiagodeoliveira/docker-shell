@@ -1,5 +1,5 @@
 port=2489
-host='172.17.0.1'
+host='host.docker.internal'
 trans-loopback = true
 trans-localfile = true
 line-ending = 'crlf'

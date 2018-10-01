@@ -19,6 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'sebdah/vim-delve'
+Plug 'maksimr/vim-jsbeautify'
 call plug#end()
 
 if has('nvim')

@@ -49,7 +49,9 @@ RUN apt-get update && \
       ngrep \
       linux-tools-4.15.0.20 \
       valgrind \
-      google-drive-ocamlfuse
+      google-drive-ocamlfuse \
+      openjfx \
+      tidy
 
 # Config timezone
 ENV TZ Europe/Berlin
@@ -102,8 +104,9 @@ RUN wget --quiet https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/t
 
 # Install nvm
 ENV NVM_VERSION 0.33.8
+ENV NVM_DIR /root/.nvm
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash
-RUN export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && nvm install 6.10
+RUN \. "$NVM_DIR/nvm.sh" && nvm install 10
 
 # Install helm
 ENV HELM_VERSION v2.9.1
@@ -111,6 +114,11 @@ RUN wget --quiet https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERS
 	tar -zxvf helm* && \
 	mv linux-amd64/helm /usr/local/bin && \
 	rm -rf linux-adm64* && rm -rf helm*
+
+# Install bat
+RUN curl -L  https://github.com/sharkdp/bat/releases/download/v0.7.0/bat_0.7.0_amd64.deb -o bat.deb && \
+  dpkg -i bat.deb && \
+  rm -rf bat.deb
 
 # Config vim
 ADD init.vim /root/.config/nvim/init.vim
@@ -123,6 +131,7 @@ RUN chsh -s /usr/bin/zsh
 # Add additional configs
 ADD tmux.conf /root/.tmux.conf
 ADD lemonade.toml /root/.config/lemonade.toml
+
 
 WORKDIR /src
 
