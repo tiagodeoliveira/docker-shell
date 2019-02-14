@@ -5,6 +5,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV TERM=xterm-256color
+ENV EDITOR /usr/bin/vim
 
 # Install a bunch of "necessary" things
 RUN apt-get update && \
@@ -137,8 +138,6 @@ RUN chsh -s /usr/bin/zsh
 # Add additional configs
 ADD tmux.conf /root/.tmux.conf
 ADD lemonade.toml /root/.config/lemonade.toml
-
-ENV EDITOR /usr/bin/vim
 
 WORKDIR /src
 
