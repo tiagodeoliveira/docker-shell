@@ -20,6 +20,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'sebdah/vim-delve'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'mcchrish/nnn.vim'
 call plug#end()
 
 if has('nvim')

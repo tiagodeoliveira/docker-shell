@@ -17,6 +17,7 @@ RUN apt-get update && \
       mosh \
       tmux  \
       neovim  \
+      nnn \
       python \
       python-dev \
       python-pip \
@@ -51,7 +52,12 @@ RUN apt-get update && \
       valgrind \
       google-drive-ocamlfuse \
       openjfx \
-      tidy
+      tidy \
+      moreutils \ 
+      exiftool \ 
+      atool \ 
+      patool \ 
+      vlock
 
 # Config timezone
 ENV TZ Europe/Berlin
@@ -132,6 +138,7 @@ RUN chsh -s /usr/bin/zsh
 ADD tmux.conf /root/.tmux.conf
 ADD lemonade.toml /root/.config/lemonade.toml
 
+ENV EDITOR /usr/bin/vim
 
 WORKDIR /src
 
