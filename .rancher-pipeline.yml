@@ -1,8 +1,0 @@
-stages:
-- name: build
-  steps:
-  - publishImageConfig:
-      dockerfilePath: ./Dockerfile
-      buildContext: .
-      tag: tiagodeoliveira/docker-shell
-timeout: 60
