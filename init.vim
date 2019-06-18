@@ -21,6 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'sebdah/vim-delve'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mcchrish/nnn.vim'
+Plug 'elmcast/elm-vim'
 call plug#end()
 
 if has('nvim')
